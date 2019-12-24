@@ -1,0 +1,24 @@
+.btn{
+  &-submit {
+    margin-top:10px;
+    font-weight: 600;
+    width: 200px;
+    height: 40px;
+    display: inline-block;
+  }
+  &-skills {
+    display: block;
+    float: right;
+  }
+  &-reset {
+    font-weight: 600;
+    width: 200px;
+    height: 40px;
+    display: inline-block;
+    margin-left: 10px;
+  }
+  &-add {
+    margin-left: 5px;
+    font-weight: 600;
+  }
+}

@@ -1,0 +1,188 @@
+<form className="form-control">
+        <ul className="form-control__list">
+          <li className="form-control__list-item">
+            <h2 className="form-control__heading">Контактные данные</h2>
+            <span className="form-control__required_notification">
+              * Поля, обязательные для заполнения
+            </span>
+          </li>
+          <li className="form-control__list-item">
+            <label htmlFor="name" className="form-control__label">
+              Имя:
+            </label>
+            <input
+              className="form-control__input"
+              id="name"
+              placeholder="Александр"
+              required
+              type="text"
+              name="name"
+            />
+          </li>
+          <li className="form-control__list-item">
+            <label htmlFor="password" className="form-control__label">
+              Пароль:
+            </label>
+            <input
+              className="form-control__input"
+              id="password"
+              required
+              type="password"
+              name="password"
+            />
+            <span className="form-control__hint">Формат пароля:&quot;resPonses12&quot;</span>
+          </li>
+          <li className="form-control__list-item">
+            <label htmlFor="repeatPassword" className="form-control__label">
+              Повторите:
+            </label>
+            <input
+              className="form-control__input"
+              id="repeatPassword"
+              required
+              type="password"
+              name="repeatPassword"
+            />
+            <span className="form-control__hint">Формат пароля:&quot;resPonses12&quot;</span>
+          </li>
+          <li className="form-control__list-item">
+            <label htmlFor="email" className="form-control__label">
+              Email:
+            </label>
+            <input
+              className="form-control__input"
+              id="email"
+              required
+              placeholder="name@something.com"
+              type="email"
+              name="email"
+            />
+            <span className="form-control__hint">Формат &quot;name@something.com&quot;</span>
+          </li>
+          <li className="form-control__list-item">
+            <label htmlFor="website" className="form-control__label">
+              Website:
+            </label>
+            <input
+              className="form-control__input"
+              id="website"
+              placeholder="http://johndoe.com"
+              type="url"
+              name="website"
+            />
+            <span className="form-control__hint">Формат &quot;http://someaddress.com&quot;</span>
+          </li>
+          <li className="form-control__list-item">
+            <label htmlFor="age" className="form-control__label">
+              Возраст:
+            </label>
+            <input className="form-control__input" id="age" required type="number" name="age" />
+          </li>
+          <li className="form-control__list-item">
+            <label htmlFor="skills" className="form-control__label">
+              Навыки:
+            </label>
+            <Button className="btn-skills" type="primary" size="swall" htmlType="button">
+              Добавить ещё навык
+            </Button>
+            <input className="form-control__input" id="skills" type="text" name="skills" />
+          </li>
+        </ul> 
+
+
+         {/* <li className="form-control__list-item">
+                       <label htmlFor="name" className="form-control__label">Имя:</label>
+                       <input 
+                          className={classNames.name}
+                          id="name" 
+                          placeholder="Иван"
+                          type="text" 
+                          required
+                          value={values.name} 
+                          onChange={handleChange} 
+                          name="name" 
+                          onFocus={handleBlur} />
+                          {touched.name && errors.name ? (
+                        <div className="form-control__error-message">{errors.name}</div>
+                      ) : null}
+                    </li>
+                    <li className="form-control__list-item">
+                       <label htmlFor="password" className="form-control__label">Пароль:</label>
+                       <input 
+                          className={classNames.password}
+                          id="password" 
+                          type="password" 
+                          required
+                          value={values.password} 
+                          onChange={handleChange} 
+                          name="password" 
+                          onFocus={handleBlur} />
+                          <span className="form-control__hint">{`Формат пароля:"resPonses12"`}</span>
+                          {touched.password && errors.password ? (
+                        <div className="form-control__error-message">{errors.password}</div>
+                      ) : null}
+                    </li>
+                    <li className="form-control__list-item">
+                       <label htmlFor="repeatPassword" className="form-control__label">Повторите:</label>
+                       <input 
+                          className={classNames.repeatPassword}
+                          id="repeatPassword" 
+                          required
+                          type="password" 
+                          value={values.repeatPassword} 
+                          onChange={handleChange} 
+                          name="repeatPassword" 
+                          onFocus={handleBlur} />
+                          {touched.repeatPassword && errors.repeatPassword ? (
+                        <div className="form-control__error-message">{errors.repeatPassword}</div>
+                      ) : null}
+                    </li>
+                    <li className="form-control__list-item">
+                       <label htmlFor="email" className="form-control__label">Email:</label>
+                       <input 
+                          className={classNames.email}
+                          placeholder="name@something.com"
+                          id="email" 
+                          required
+                          type="email" 
+                          value={values.email} 
+                          onChange={handleChange} 
+                          name="email" 
+                          onFocus={handleBlur} />
+                           <span className="form-control__hint">{`Формат пароля:"name@something.com"`}</span>
+                          {touched.email && errors.email ? (
+                        <div className="form-control__error-message">{errors.email}</div>
+                      ) : null}
+                    </li>
+                    <li className="form-control__list-item">
+                       <label htmlFor="website" className="form-control__label">Вебсайт:</label>
+                       <input 
+                          className={classNames.website}
+                          placeholder="http://johndoe.com"
+                          id="website" 
+                          type="url" 
+                          value={values.website} 
+                          onChange={handleChange} 
+                          name="website" 
+                          onFocus={handleBlur} />
+                          <span className="form-control__hint">{`Формат "http://someaddress.com"`}</span>
+                          {touched.website && errors.website ? (
+                        <div className="form-control__error-message">{errors.website}</div>
+                      ) : null}
+                    </li>
+                    <li className="form-control__list-item">
+                       <label htmlFor="age" className="form-control__label">Возраст:</label>
+                       <input 
+                          className={classNames.age}
+                          placeholder="22"
+                          required
+                          id="age" 
+                          type="number" 
+                          value={values.age} 
+                          onChange={handleChange} 
+                          name="age" 
+                          onFocus={handleBlur} />
+                          {touched.age && errors.age ? (
+                        <div className="form-control__error-message">{errors.age}</div>
+                      ) : null}
+                    </li> */}

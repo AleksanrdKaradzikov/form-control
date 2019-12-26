@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik } from 'formik';
 import Skills from './skills';
-import ListItem from './list-item';
+import RenderInputs from './render-inputs';
 import SubmitBlock from './submit-block';
 import SignupShema from '../helpers/validation-shema';
 
@@ -99,7 +99,7 @@ class Basic extends React.Component {
                     * Поля, обязательные для заполнения
                   </span>
                 </li>
-                <ListItem formik={formik} response={response} handleFocus={handleFocus} />
+                <RenderInputs formik={formik} response={response} handleFocus={handleFocus} />
                 <Skills formik={formik} skillIndex={this.skillIndex} />
               </ul>
               <SubmitBlock

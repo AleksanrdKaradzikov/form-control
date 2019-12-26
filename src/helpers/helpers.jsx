@@ -23,47 +23,4 @@ const getInputClass = (touched, errors) => {
   return classNames;
 };
 
-const getInputType = value => {
-  let type = '';
-  switch (value) {
-    case 'name': {
-      type = 'text';
-      return type;
-    }
-    case 'password': {
-      type = 'password';
-      return type;
-    }
-    case 'repeatPassword': {
-      type = 'password';
-      return type;
-    }
-    case 'email': {
-      type = 'email';
-      return type;
-    }
-    case 'website': {
-      type = 'url';
-      return type;
-    }
-    case 'age': {
-      type = 'number';
-      return type;
-    }
-    default: {
-      return type;
-    }
-  }
-};
-
-const checkRequired = value => {
-  return (
-    value === 'name' ||
-    value === 'password' ||
-    value === 'repeatPassword' ||
-    value === 'email' ||
-    value === 'age'
-  );
-};
-
-export { getInputClass, getInputType, checkRequired };
+export default getInputClass;

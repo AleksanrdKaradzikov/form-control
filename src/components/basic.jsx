@@ -1,6 +1,6 @@
 import React from 'react';
-import { Formik, FieldArray, Field } from 'formik';
-import { Button } from 'antd';
+import { Formik } from 'formik';
+import Skills from './skills';
 import ListItem from './list-item';
 import SubmitBlock from './submit-block';
 import SignupShema from '../helpers/validation-shema';
@@ -16,10 +16,58 @@ class Basic extends React.Component {
     };
   }
 
+  getFetch(data, formik) {
+    setTimeout(async () => {
+      try {
+        const res = await fetch('http://localhost:8080/sign-up', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+          body: data,
+        });
+
+        const result = await res.text();
+        this.setState({
+          loading: false,
+          response: result,
+        });
+        formik.setSubmitting(false);
+        if (result === 'Вы успешно зарегестрированы!') {
+          formik.resetForm();
+        }
+      } catch {
+        this.setState({
+          loading: false,
+          response: 'Обнаружены неполадки, сообщение не отправленно',
+        });
+        formik.setSubmitting(false);
+      }
+    }, 2000);
+  }
+
+  handleReset = reset => {
+    reset();
+    this.setState({
+      loading: false,
+      response: '',
+    });
+  };
+
   handleFocus = () => {
     this.setState({
       response: '',
     });
+  };
+
+  handleSubmit = (values, formik) => {
+    formik.setSubmitting(true);
+    this.setState({
+      loading: true,
+    });
+    const newValues = { ...values, skills: values.skills.filter(skill => skill !== '') };
+    const data = JSON.stringify(newValues);
+    this.getFetch(data, formik);
   };
 
   render() {
@@ -38,37 +86,10 @@ class Basic extends React.Component {
           acceptTerms: false,
         }}
         validationSchema={SignupShema}
-        onSubmit={(values, formik) => {
-          formik.setSubmitting(false);
-          this.setState({
-            loading: true,
-          });
-          const newValues = { ...values, skills: values.skills.filter(skill => skill !== '') };
-          const data = JSON.stringify(newValues);
-          setTimeout(async () => {
-            const res = await fetch('http://localhost:8080/sign-up', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-              },
-              body: data,
-            });
-
-            const result = await res.text();
-            this.setState({
-              loading: false,
-              response: result,
-            });
-            if (result === 'Вы успешно зарегестрированы!') {
-              formik.resetForm();
-            } else {
-              formik.setErrors();
-            }
-          }, 2000);
-        }}
+        onSubmit={this.handleSubmit}
       >
         {formik => {
-          const { values, handleSubmit, touched, errors } = formik;
+          const { handleSubmit } = formik;
           return (
             <form className="form-control" onSubmit={handleSubmit}>
               <ul className="form-control__list">
@@ -79,49 +100,14 @@ class Basic extends React.Component {
                   </span>
                 </li>
                 <ListItem formik={formik} response={response} handleFocus={handleFocus} />
-                <FieldArray
-                  name="skills"
-                  render={arrayHelpers => {
-                    let skillId = this.skillIndex;
-                    return (
-                      <li className="form-control__list-item">
-                        <label htmlFor="skills" className="form-control__label">
-                          Навыки:
-                        </label>
-                        <div className="form-control__skills-box">
-                          {values.skills.map((skill, index) => {
-                            skillId += 1;
-                            return (
-                              <div className="form-control__skill-box" key={`id_${skillId}`}>
-                                <Field
-                                  name={`skills.${index}`}
-                                  id="skills"
-                                  className="form-control__input"
-                                  placeholder="Введите сюда свои навыки..."
-                                />
-                                <Button
-                                  type="default"
-                                  className="btn-add"
-                                  htmlType="button"
-                                  onClick={() => arrayHelpers.insert(index, '')}
-                                >
-                                  +
-                                </Button>
-                                {touched.skills && errors.skills ? (
-                                  <div className="form-control__skills-message">
-                                    {errors.skills}
-                                  </div>
-                                ) : null}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </li>
-                    );
-                  }}
-                />
+                <Skills formik={formik} skillIndex={this.skillIndex} />
               </ul>
-              <SubmitBlock formik={formik} loading={loading} response={response} />
+              <SubmitBlock
+                formik={formik}
+                loading={loading}
+                response={response}
+                handleReset={this.handleReset}
+              />
             </form>
           );
         }}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Checkbox } from 'antd';
 import PropTypes from 'prop-types';
 
-const SubmitBlock = ({ formik, loading, response }) => {
+const SubmitBlock = ({ formik, loading, response, handleReset }) => {
   const acceptTermsError =
     formik.touched.acceptTerms && formik.errors.acceptTerms ? (
       <span className="form-control__accept-error">{formik.errors.acceptTerms}</span>
@@ -10,6 +10,10 @@ const SubmitBlock = ({ formik, loading, response }) => {
   const successMessage =
     response === 'Вы успешно зарегестрированы!' ? (
       <div className="form-control__success">{response}</div>
+    ) : null;
+  const failedMessage =
+    response === 'Обнаружены неполадки, сообщение не отправленно' ? (
+      <div className="form-control__failed">{response}</div>
     ) : null;
   return (
     <div className="form-control__submit-block">
@@ -41,13 +45,14 @@ const SubmitBlock = ({ formik, loading, response }) => {
           size="large"
           type="danger"
           htmlType="reset"
-          onClick={formik.handleReset}
+          onClick={() => handleReset(formik.handleReset)}
           disabled={loading}
         >
           Сбосить
         </Button>
       </div>
       {successMessage}
+      {failedMessage}
     </div>
   );
 };
@@ -58,6 +63,7 @@ SubmitBlock.defaultProps = {
   formik: {},
   response: '',
   loading: false,
+  handleReset: () => {},
 };
 
 SubmitBlock.propTypes = {
@@ -71,4 +77,5 @@ SubmitBlock.propTypes = {
   }),
   response: PropTypes.string,
   loading: PropTypes.bool,
+  handleReset: PropTypes.func,
 };

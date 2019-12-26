@@ -56,4 +56,14 @@ const getInputType = value => {
   }
 };
 
-export { getInputClass, getInputType };
+const checkRequired = value => {
+  return (
+    value === 'name' ||
+    value === 'password' ||
+    value === 'repeatPassword' ||
+    value === 'email' ||
+    value === 'age'
+  );
+};
+
+export { getInputClass, getInputType, checkRequired };

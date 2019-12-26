@@ -63,15 +63,15 @@ const setNewUser = function(req, res) {
                   }
                   data.push(newUser);
                   res.send('Вы успешно зарегестрированы!');
-                  res.end();
+                  res.status(200).end();
                 } else {
                   res.send('Пользователь с таким email уже существует');
-                  res.end();
+                  res.status(200).end();
                 }
               })
               .catch(() => {
                  res.send('Введите валидные данные');
-                 res.end();
+                 res.status(400).end();
               })
               
   
